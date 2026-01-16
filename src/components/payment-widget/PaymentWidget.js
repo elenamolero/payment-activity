@@ -2,6 +2,7 @@ import { html, css, LitElement } from 'lit';
 import '../atoms/ui-button/ui-button.js';
 import '../atoms/ui-icon/ui-icon.js';
 import '../atoms/ui-icon/ui-icon-set.js';
+import '../atoms/ui-amount/ui-amount.js';
 
 export class PaymentWidget extends LitElement {
   static properties = {
@@ -39,6 +40,34 @@ export class PaymentWidget extends LitElement {
         <ui-button label="Button" variant="primary"></ui-button>
         <ui-button label="Link" variant="secondary"></ui-button>
       </section>
+      <ui-amount
+        .value=${1234567.89}
+        .currency=${'$'}
+        .locale=${'en-US'}
+        .currencyPosition=${'before'}
+      ></ui-amount
+      ><br />
+      <ui-amount
+        .value=${1234567.89}
+        .currency=${'€'}
+        .locale=${'es-ES'}
+        .currencyPosition=${'after'}
+      ></ui-amount
+      ><br />
+      <ui-amount
+        .value=${54321.99}
+        .currency=${'CHF'}
+        .locale=${'de-DE'}
+        .currencyPosition=${'before'}
+      ></ui-amount
+      ><br />
+      <ui-amount
+        .value=${123456.78}
+        .currency=${'¥'}
+        .locale=${'ja-JP'}
+        .currencyPosition=${'before'}
+        .trend=${'up'}
+      ></ui-amount>
     `;
   }
 

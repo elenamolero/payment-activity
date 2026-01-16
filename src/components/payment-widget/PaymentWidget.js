@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit';
 import '../atoms/ui-button/ui-button.js';
 import '../atoms/ui-icon/ui-icon.js';
-// ← YA NO IMPORTES ui-icon-set
+import '../atoms/ui-icon/ui-icon-set.js';
 
 export class PaymentWidget extends LitElement {
   static properties = {
@@ -17,17 +17,18 @@ export class PaymentWidget extends LitElement {
 
   render() {
     return html`
+      <ui-icon-set></ui-icon-set>
       <ui-icon
         name="paper-plane"
         size="xl"
         color="#3b82f6"
-        iconTitle="Send payment"
+        description="Send payment"
       ></ui-icon>
       <ui-icon
         name="paper-plane"
         size="xs"
         color="#3b82f6"
-        iconTitle="Send payment"
+        description="Send payment"
       ></ui-icon>
 
       <section

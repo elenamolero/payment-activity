@@ -6,6 +6,8 @@
   <style>
     body {
       background: #fafafa;
+      margin: 0;
+      padding: 20px;
     }
   </style>
 </head>
@@ -14,11 +16,14 @@
 
   <script type="module">
     import { html, render } from 'lit';
-    import '../payment-widget.js';
+    import '../src/components/payment-widget/PaymentWidget.js'; 
+    // ← YA NO IMPORTES ui-icon-set
 
     const header = 'Hello owc World!';
+    
     render(
       html`
+        <!-- ← YA NO NECESITAS ui-icon-set -->
         <payment-widget .header=${header}>
           some light-dom
         </payment-widget>

@@ -95,6 +95,15 @@ export class UiAmount extends LitElement {
     return null;
   }
 
+  _getTrendDescription() {
+    const descriptionMap = {
+      up: 'Increasing trend',
+      down: 'Decreasing trend',
+      none: '',
+    };
+    return descriptionMap[this.validatedTrend] || '';
+  }
+
   renderTrendIcon() {
     const iconMap = {
       up: { name: 'caret-up' },
@@ -107,11 +116,13 @@ export class UiAmount extends LitElement {
     if (trendInfo) {
       const color = this._getTrendColor();
       const iconSize = this._getIconSize();
+      const description = this._getTrendDescription();
       return html`
         <ui-icon
           name="${trendInfo.name}"
           size="${iconSize}"
           color="${color}"
+          description="${description}"
           decorative
         ></ui-icon>
       `;

@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import '../payment-widget.js';
+import '../src/components/payment-widget/PaymentWidget.js';
 
 export default {
   title: 'PaymentWidget',

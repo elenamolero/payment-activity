@@ -6,6 +6,8 @@
   <style>
     body {
       background: #fafafa;
+      margin: 0;
+      padding: 20px;
     }
   </style>
 </head>
@@ -14,9 +16,11 @@
 
   <script type="module">
     import { html, render } from 'lit';
-    import '../payment-widget.js';
+    import '../src/components/payment-widget/PaymentWidget.js'; 
+
 
     const header = 'Hello owc World!';
+    
     render(
       html`
         <payment-widget .header=${header}>

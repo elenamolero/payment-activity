@@ -116,4 +116,33 @@ describe('UiButton', () => {
     expect(button.classList.contains('ui-button--secondary')).to.be.true;
     expect(button.classList.contains('ui-button--primary')).to.be.false;
   });
+
+  it('renders as link when href is provided', async () => {
+    const el = await fixture(
+      html`<ui-button href="https://example.com"></ui-button>`,
+    );
+    const link = el.shadowRoot.querySelector('a');
+    expect(link).to.exist;
+    expect(link.getAttribute('href')).to.equal('https://example.com');
+  });
+
+  it('opens link in new tab when href is provided', async () => {
+    const el = await fixture(
+      html`<ui-button href="https://example.com"></ui-button>`,
+    );
+    const link = el.shadowRoot.querySelector('a');
+    expect(link.getAttribute('target')).to.equal('_blank');
+  });
+
+  it('dispatches event when link is clicked', async () => {
+    const el = await fixture(
+      html`<ui-button href="https://example.com"></ui-button>`,
+    );
+    let clicked = false;
+    el.addEventListener('ui-button-click', () => {
+      clicked = true;
+    });
+    el.shadowRoot.querySelector('a').click();
+    expect(clicked).to.be.true;
+  });
 });

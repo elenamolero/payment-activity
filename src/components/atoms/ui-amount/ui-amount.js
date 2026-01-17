@@ -144,6 +144,7 @@ export class UiAmount extends LitElement {
 
   static styles = css`
     :host {
+      display: inline-flex;
       line-height: 1;
       font-weight: 200;
       color: var(--ui-amount-color, #070e46);

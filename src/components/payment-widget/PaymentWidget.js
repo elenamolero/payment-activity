@@ -87,7 +87,7 @@ export class PaymentWidget extends LitElement {
               .locale=${this.locale}
               .currencyPosition=${this.currencyPosition}
               .trend=${this.headerAmountTrend}
-              .size=${'m'}
+              size="m"
               aria-label="Total payment amount"
             ></ui-amount>
           </output>
@@ -111,7 +111,7 @@ export class PaymentWidget extends LitElement {
                 .currency=${this.currency}
                 .locale=${this.locale}
                 .currencyPosition=${this.currencyPosition}
-                .size=${'xl'}
+                size="xl"
                 aria-label="Total payment amount"
               ></ui-amount>
             </data>
@@ -155,15 +155,16 @@ export class PaymentWidget extends LitElement {
           aria-labelledby="actions-heading"
         >
           <ui-button
-            .label="Confirm"
+            label="Confirm"
             variant="primary"
             @ui-button-click=${this._onPrimaryClick}
             aria-describedby="confirm-description"
           ></ui-button>
 
           <ui-button
-            .label="Cancel"
+            label="Become a customer"
             variant="secondary"
+            href="https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html"
             @ui-button-click=${this._onSecondaryClick}
             aria-describedby="cancel-description"
           ></ui-button>

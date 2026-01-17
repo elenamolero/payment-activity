@@ -49,7 +49,7 @@ export class UiButton extends LitElement {
       display: block;
       flex: var(--ui-button-flex, initial);
       width: var(--ui-button-width, 100%);
-      max-width: var(--ui-button-max-width, 500px);
+      max-width: var(--ui-button-max-width, none);
     }
 
     .ui-button {

@@ -73,7 +73,11 @@ export class PaymentWidget extends LitElement {
         aria-labelledby="payment-card"
       >
         <header class="payment-header">
-          <time datetime="${this.date}" class="payment-date">
+          <time
+            datetime="${this.date}"
+            class="payment-date"
+            aria-label="Fecha de la operación: ${this.date}"
+          >
             ${this.date}
           </time>
           <output class="amount-display" aria-live="polite">
@@ -83,7 +87,7 @@ export class PaymentWidget extends LitElement {
               .locale=${this.locale}
               .currencyPosition=${this.currencyPosition}
               .trend=${this.headerAmountTrend}
-              .size="m"
+              .size=${'m'}
               aria-label="Total payment amount"
             ></ui-amount>
           </output>
@@ -107,7 +111,7 @@ export class PaymentWidget extends LitElement {
                 .currency=${this.currency}
                 .locale=${this.locale}
                 .currencyPosition=${this.currencyPosition}
-                .size="xl"
+                .size=${'xl'}
                 aria-label="Total payment amount"
               ></ui-amount>
             </data>
@@ -172,6 +176,14 @@ export class PaymentWidget extends LitElement {
     :host {
       display: block;
       color: #070e46;
+      min-height: 100vh;
+      font-family: sans-serif, Arial, Helvetica;
+    }
+
+    .payment-widget {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     .payment-header {
@@ -181,11 +193,13 @@ export class PaymentWidget extends LitElement {
       right: 0;
       display: flex;
       justify-content: space-between;
-      margin: 1.2rem 1.6rem;
+      padding: 1.2rem 1.6rem;
+      background-color: #ffffff;
     }
 
     .payment-date {
       font-size: 1.125rem;
+      font-weight: 600;
     }
 
     .payment-header .amount-display {
@@ -197,7 +211,8 @@ export class PaymentWidget extends LitElement {
       display: flex;
       flex-direction: column;
       padding: 1rem 1.6rem;
-      gap: 1rem;
+      gap: 1.3rem;
+      flex: 1 0 auto;
     }
 
     .main-payment-details {
@@ -226,11 +241,12 @@ export class PaymentWidget extends LitElement {
     .secondary-payment-details {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.3rem;
     }
 
     .secondary-payment-details > p {
       margin: 0;
+      font-size: 1.1rem;
     }
 
     .payment-id-info {
@@ -269,12 +285,13 @@ export class PaymentWidget extends LitElement {
       padding: 0;
       margin: 0;
       display: grid;
-      gap: 0.6rem;
+      gap: 0.9rem;
     }
 
     .bullets-list li {
       position: relative;
       padding-left: 1.8rem;
+      font-size: 1.1rem;
     }
 
     .bullets-list li::before {
@@ -290,10 +307,13 @@ export class PaymentWidget extends LitElement {
     }
 
     .payment-footer {
+      position: sticky;
+      bottom: 0;
       display: flex;
       flex-direction: column;
-      margin: 1.2rem 1.6rem;
+      padding: 1.2rem 1.6rem;
       gap: 1rem;
+      background-color: #ffffff;
     }
 
     @media (min-width: 768px) {

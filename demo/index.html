@@ -7,7 +7,6 @@
     body {
       background: #fafafa;
       margin: 0;
-      padding: 20px;
     }
   </style>
 </head>
@@ -18,14 +17,40 @@
     import { html, render } from 'lit';
     import '../src/components/payment-widget/PaymentWidget.js'; 
 
+    const paymentData = {
+      date: '2024-06-15',
+      paymentTitle: 'Transfer Payment',
+      headerAmount: 91234.56,
+      paymentAmount: 1234.56,
+      currency: '€',
+      locale: 'es-ES',
+      currencyPosition: 'after',
+      headerAmountTrend: 'up',
+      status: 'Completed',
+      paymentId: '789012',
+      category: 'Transfer',
+      description: 'Payment to Elena Molero Padilla',
+      bullets: ['Zara white trousers', 'Nike running shoes', 'Huda Beauty lipstick'],
+    };
 
-    const header = 'Hello owc World!';
     
     render(
       html`
-        <payment-widget .header=${header}>
-          some light-dom
-        </payment-widget>
+        <payment-widget
+            .date=${paymentData.date}
+            .paymentTitle=${paymentData.paymentTitle}
+            .headerAmount=${paymentData.headerAmount}
+            .paymentAmount=${paymentData.paymentAmount}
+            .currency=${paymentData.currency}
+            .locale=${paymentData.locale}
+            .currencyPosition=${paymentData.currencyPosition}
+            .headerAmountTrend=${paymentData.headerAmountTrend}
+            .paymentId=${paymentData.paymentId}
+            .status=${paymentData.status}
+            .category=${paymentData.category}
+            .description=${paymentData.description}
+            .bullets=${paymentData.bullets}
+         ></payment-widget>
       `,
       document.querySelector('#demo')
     );

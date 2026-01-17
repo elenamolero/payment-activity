@@ -14,7 +14,7 @@ export class PaymentWidget extends LitElement {
     currencyPosition: { type: String },
     headerAmountTrend: { type: String },
     paymentTitle: { type: String },
-    paymentId: { type: String },
+    accountNumber: { type: String },
     status: { type: String },
     category: { type: String },
     description: { type: String },
@@ -31,7 +31,7 @@ export class PaymentWidget extends LitElement {
     this.currencyPosition = 'after';
     this.headerAmountTrend = 'none';
     this.paymentTitle = 'Payment';
-    this.paymentId = '';
+    this.accountNumber = '';
     this.status = 'Pending';
     this.category = 'Transfer';
     this.description = '';
@@ -47,7 +47,7 @@ export class PaymentWidget extends LitElement {
           amount: this.headerAmount,
           currency: this.currency,
           status: this.status,
-          paymentId: this.paymentId,
+          accountNumber: this.accountNumber,
         },
       }),
     );
@@ -70,7 +70,7 @@ export class PaymentWidget extends LitElement {
       <article
         class="payment-widget"
         role="region"
-        aria-labelledby="payment-card"
+        aria-labelledby="payment-card-title"
       >
         <header class="payment-header">
           <time
@@ -94,10 +94,7 @@ export class PaymentWidget extends LitElement {
         </header>
 
         <main class="payment-main">
-          <section
-            class="main-payment-details"
-            aria-labelledby="main-payment-details"
-          >
+          <section class="main-payment-details" aria-labelledby="payment-title">
             <img
               src="../../assets/paper-plane.png"
               alt=""
@@ -105,7 +102,7 @@ export class PaymentWidget extends LitElement {
               class="paper-plane"
             />
             <h1 id="payment-title">${this.paymentTitle}</h1>
-            <data class="amount-display" role="status" aria-live="polite">
+            <data class="amount-display" role="status">
               <ui-amount
                 .value=${this.paymentAmount}
                 .currency=${this.currency}
@@ -119,29 +116,44 @@ export class PaymentWidget extends LitElement {
 
           <section
             class="secondary-payment-details"
-            aria-labelledby="secondary-payment-details"
+            aria-labelledby="secondary-details-heading"
           >
-            <p class="payment-id-info">
+            <h2 id="secondary-details-heading" class="visually-hidden">
+              Additional payment details
+            </h2>
+            <p
+              class="payment-id-info"
+              aria-label="The account number is ${this.accountNumber}"
+            >
               <ui-icon name="bank-reduced-logo" aria-hidden="true"></ui-icon>
-              <span>•${this.paymentId}</span>
+              <span aria-hidden="true">•${this.accountNumber}</span>
             </p>
 
             <p class="status-container">
-              <strong class="status-badge" role="status">
-                <i>${this.status}</i>
+              <strong
+                class="status-badge"
+                role="status"
+                aria-label="Payment status: ${this.status}"
+              >
+                <span aria-hidden="true">${this.status}</span>
               </strong>
             </p>
 
-            <p class="category-info">
+            <p
+              class="category-info"
+              aria-label="Payment category: ${this.category}"
+            >
               <ui-icon name="car" aria-hidden="true"></ui-icon>
-              <span class="category-text">${this.category}</span>
+              <span class="category-text" aria-hidden="true"
+                >${this.category}</span
+              >
             </p>
 
             <p class="detail-description">${this.description}</p>
 
             ${this.bullets.length > 0
               ? html`
-                  <ul class="bullets-list" aria-label="Información adicional">
+                  <ul class="bullets-list" aria-label="Bullets details">
                     ${this.bullets.map(bullet => html` <li>${bullet}</li> `)}
                   </ul>
                 `
@@ -154,12 +166,17 @@ export class PaymentWidget extends LitElement {
           role="group"
           aria-labelledby="actions-heading"
         >
+          <h2 id="actions-heading" class="visually-hidden">Actions</h2>
+
           <ui-button
             label="Confirm"
             variant="primary"
             @ui-button-click=${this._onPrimaryClick}
             aria-describedby="confirm-description"
           ></ui-button>
+          <span id="confirm-description" class="visually-hidden"
+            >Confirm the pending payment</span
+          >
 
           <ui-button
             label="Become a customer"
@@ -168,6 +185,9 @@ export class PaymentWidget extends LitElement {
             @ui-button-click=${this._onSecondaryClick}
             aria-describedby="cancel-description"
           ></ui-button>
+          <span id="cancel-description" class="visually-hidden"
+            >Open a new account</span
+          >
         </footer>
       </article>
     `;
@@ -179,6 +199,17 @@ export class PaymentWidget extends LitElement {
       color: #070e46;
       min-height: 100vh;
       font-family: sans-serif, Arial, Helvetica;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
 
     .payment-widget {

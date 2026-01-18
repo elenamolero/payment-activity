@@ -204,10 +204,15 @@ export class PaymentWidget extends LitElement {
       display: block;
       --payment-widget-text-color: #070e46;
       --payment-widget-bg-color: #ffffff;
+      --payment-widget-amount-text-color: var(--payment-widget-text-color);
       min-height: 100vh;
       font-family: sans-serif, Arial, Helvetica;
       color: var(--payment-widget-text-color);
       background-color: var(--payment-widget-bg-color);
+    }
+
+    ui-amount {
+      --ui-amount-color: var(--payment-widget-amount-text-color);
     }
 
     .visually-hidden {
@@ -299,7 +304,7 @@ export class PaymentWidget extends LitElement {
 
     .status-badge {
       display: inline-flex;
-      background-color: #ecedf0;
+      background-color: var(--payment-widget-status-badge-background-color);
       padding: 4px 12px;
       border-radius: 12px;
       font-size: 0.85rem;
@@ -340,7 +345,10 @@ export class PaymentWidget extends LitElement {
       transform: translateY(-50%);
       width: 0.8rem;
       height: 0.4rem;
-      background: #070e46;
+      background: var(
+        --payment-widget-bullets-color,
+        var(--payment-widget-text-color)
+      );
       border-radius: 0.5rem;
     }
 
@@ -352,6 +360,15 @@ export class PaymentWidget extends LitElement {
       padding: 1.2rem 1.6rem;
       gap: 1rem;
       background-color: var(--payment-widget-bg-color);
+    }
+
+    ui-button {
+      --ui-button-primary-bg-color: var(--payment-widget-button-primary-bg);
+      --ui-button-primary-text-color: var(--payment-widget-button-primary-text);
+      --ui-button-secondary-bg-color: var(--payment-widget-button-secondary-bg);
+      --ui-button-secondary-text-color: var(
+        --payment-widget-button-secondary-text
+      );
     }
 
     @media (min-width: 768px) {

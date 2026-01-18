@@ -95,26 +95,26 @@ export class UiButton extends LitElement {
     }
 
     .ui-button--primary {
-      background-color: #001391;
-      color: white;
+      background-color: var(--ui-button-primary-bg-color, #001391);
+      color: var(--ui-button-primary-text-color, white);
     }
 
     .ui-button--primary:hover:not(:disabled) {
-      background-color: #06195b;
+      background-color: var(--ui-button-primary-hover-bg-color, #06195b);
     }
 
     .ui-button--primary:active:not(:disabled) {
-      background-color: #02093f;
+      background-color: var(--ui-button-primary-active-bg-color, #02093f);
     }
 
     .ui-button--secondary {
-      background-color: #ededed;
-      color: #001391;
+      background-color: var(--ui-button-secondary-bg-color, #ededed);
+      color: var(--ui-button-secondary-text-color, #001391);
     }
 
     .ui-button--secondary:hover:not(:disabled) {
-      color: #020e28;
-      border-color: #020e28;
+      color: var(--ui-button-secondary-hover-text-color, #020e28);
+      border-color: var(--ui-button-secondary-hover-border-color, #020e28);
       background-color: #d0d0d0;
     }
   `;

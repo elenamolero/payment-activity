@@ -147,7 +147,6 @@ export class UiAmount extends LitElement {
       display: inline-flex;
       line-height: 1;
       font-weight: 200;
-      color: var(--ui-amount-color, #070e46);
       font-size: var(--ui-amount-font-size, 1rem);
       --ui-amount-trend-up-color: #02702a;
       --ui-amount-trend-down-color: #aa0f0f;
@@ -157,6 +156,7 @@ export class UiAmount extends LitElement {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
+      color: var(--ui-amount-color, currentColor);
     }
 
     .ui-amount__value {

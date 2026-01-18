@@ -55,7 +55,7 @@ export class PaymentWidget extends LitElement {
 
   _onSecondaryClick() {
     this.dispatchEvent(
-      new CustomEvent('payment-cancel', {
+      new CustomEvent('go-to-web', {
         bubbles: true,
         composed: true,
         detail: { amount: this.headerAmount },
@@ -122,21 +122,27 @@ export class PaymentWidget extends LitElement {
               Additional payment details
             </h2>
             <p
-              class="payment-id-info"
+              class="account-number"
               aria-label="The account number is ${this.accountNumber}"
             >
-              <ui-icon name="bank-reduced-logo" aria-hidden="true"></ui-icon>
-              <span aria-hidden="true">•${this.accountNumber}</span>
+              <ui-icon
+                name="bank-reduced-logo"
+                aria-hidden="true"
+                size="s"
+              ></ui-icon>
+              <span aria-hidden="true"
+                >${this.accountNumber ? `•${this.accountNumber}` : ''}</span
+              >
             </p>
 
             <p class="status-container">
-              <strong
+              <span
                 class="status-badge"
                 role="status"
-                aria-label="Payment status: ${this.status}"
+                aria-label="Estado del pago: ${this.status}"
               >
-                <span aria-hidden="true">${this.status}</span>
-              </strong>
+                ${this.status}
+              </span>
             </p>
 
             <p
@@ -179,14 +185,14 @@ export class PaymentWidget extends LitElement {
           >
 
           <ui-button
-            label="Become a customer"
+            label="Go to web"
             variant="secondary"
             href="https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html"
             @ui-button-click=${this._onSecondaryClick}
-            aria-describedby="cancel-description"
+            aria-describedby="go-to-web"
           ></ui-button>
-          <span id="cancel-description" class="visually-hidden"
-            >Open a new account</span
+          <span id="go-to-web" class="visually-hidden"
+            >Open a link of the website</span
           >
         </footer>
       </article>
@@ -196,9 +202,12 @@ export class PaymentWidget extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: #070e46;
+      --payment-widget-text-color: #070e46;
+      --payment-widget-bg-color: #ffffff;
       min-height: 100vh;
       font-family: sans-serif, Arial, Helvetica;
+      color: var(--payment-widget-text-color);
+      background-color: var(--payment-widget-bg-color);
     }
 
     .visually-hidden {
@@ -226,7 +235,7 @@ export class PaymentWidget extends LitElement {
       display: flex;
       justify-content: space-between;
       padding: 1.2rem 1.6rem;
-      background-color: #ffffff;
+      background-color: var(--payment-widget-bg-color);
     }
 
     .payment-date {
@@ -262,6 +271,7 @@ export class PaymentWidget extends LitElement {
     }
 
     #payment-title {
+      font-family: 'Times New Roman', Times, serif;
       margin: 0;
     }
 
@@ -281,7 +291,7 @@ export class PaymentWidget extends LitElement {
       font-size: 1.1rem;
     }
 
-    .payment-id-info {
+    .account-number {
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -293,11 +303,7 @@ export class PaymentWidget extends LitElement {
       padding: 4px 12px;
       border-radius: 12px;
       font-size: 0.85rem;
-    }
-
-    .status-badge i {
       font-style: italic;
-      font-weight: normal;
     }
 
     .category-info {
@@ -345,7 +351,7 @@ export class PaymentWidget extends LitElement {
       flex-direction: column;
       padding: 1.2rem 1.6rem;
       gap: 1rem;
-      background-color: #ffffff;
+      background-color: var(--payment-widget-bg-color);
     }
 
     @media (min-width: 768px) {

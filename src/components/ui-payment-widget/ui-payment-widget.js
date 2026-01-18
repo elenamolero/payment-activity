@@ -304,7 +304,10 @@ export class PaymentWidget extends LitElement {
 
     .status-badge {
       display: inline-flex;
-      background-color: var(--payment-widget-status-badge-background-color);
+      background-color: var(
+        --payment-widget-status-badge-background-color,
+        #e0e0e0
+      );
       padding: 4px 12px;
       border-radius: 12px;
       font-size: 0.85rem;

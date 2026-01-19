@@ -145,11 +145,8 @@ export class UiAmount extends LitElement {
   static styles = css`
     :host {
       display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
       line-height: 1;
-      font-weight: 600;
-      color: var(--ui-amount-color, #001391);
+      font-weight: 200;
       font-size: var(--ui-amount-font-size, 1rem);
       --ui-amount-trend-up-color: #02702a;
       --ui-amount-trend-down-color: #aa0f0f;
@@ -159,7 +156,7 @@ export class UiAmount extends LitElement {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
-      font-size: inherit;
+      color: var(--ui-amount-color, currentColor);
     }
 
     .ui-amount__value {

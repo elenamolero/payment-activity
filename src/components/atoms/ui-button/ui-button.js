@@ -5,6 +5,7 @@ export class UiButton extends LitElement {
     label: { type: String },
     variant: { type: String },
     disabled: { type: Boolean },
+    href: { type: String },
   };
 
   constructor() {
@@ -12,6 +13,7 @@ export class UiButton extends LitElement {
     this.label = 'Click me';
     this.variant = 'primary';
     this.disabled = false;
+    this.href = '';
   }
 
   _onClick() {
@@ -19,6 +21,7 @@ export class UiButton extends LitElement {
       new CustomEvent('ui-button-click', {
         bubbles: true,
         composed: true,
+        detail: { label: this.label, href: this.href },
       }),
     );
   }
@@ -31,13 +34,27 @@ export class UiButton extends LitElement {
   }
 
   render() {
+    if (this.href) {
+      return html`
+        <a
+          href="${this.href}"
+          class="ui-button ui-button--${this.variant}"
+          aria-label="${this.label}"
+          target="_blank"
+          @click=${this._onClick}
+        >
+          ${this.label}
+        </a>
+      `;
+    }
+
     return html`
       <button
         class="ui-button ui-button--${this.variant}"
         ?disabled=${this.disabled}
         @click=${this._onClick}
         @keydown=${this._onKeyDown}
-        aria-label=${this.label}
+        aria-label="${this.label}"
       >
         ${this.label}
       </button>
@@ -49,11 +66,13 @@ export class UiButton extends LitElement {
       display: block;
       flex: var(--ui-button-flex, initial);
       width: var(--ui-button-width, 100%);
-      max-width: var(--ui-button-max-width, 500px);
+      max-width: var(--ui-button-max-width, none);
     }
 
     .ui-button {
+      display: inline-block;
       border: none;
+      box-sizing: border-box;
       border-radius: 8px;
       padding: 1rem;
       cursor: pointer;
@@ -62,6 +81,7 @@ export class UiButton extends LitElement {
       transition: all 0.2s ease;
       width: 100%;
       text-align: center;
+      text-decoration: none;
     }
 
     .ui-button:disabled {
@@ -69,32 +89,32 @@ export class UiButton extends LitElement {
       opacity: 0.5;
     }
 
-    .ui-button:focus {
+    .ui-button:focus-visible {
       outline: 2px solid #5784ff;
       outline-offset: 2px;
     }
 
     .ui-button--primary {
-      background-color: #001391;
-      color: white;
+      background-color: var(--ui-button-primary-bg-color, #001391);
+      color: var(--ui-button-primary-text-color, white);
     }
 
     .ui-button--primary:hover:not(:disabled) {
-      background-color: #06195b;
+      background-color: var(--ui-button-primary-hover-bg-color, #06195b);
     }
 
     .ui-button--primary:active:not(:disabled) {
-      background-color: #02093f;
+      background-color: var(--ui-button-primary-active-bg-color, #02093f);
     }
 
     .ui-button--secondary {
-      background-color: #ededed;
-      color: #001391;
+      background-color: var(--ui-button-secondary-bg-color, #ededed);
+      color: var(--ui-button-secondary-text-color, #001391);
     }
 
     .ui-button--secondary:hover:not(:disabled) {
-      color: #020e28;
-      border-color: #020e28;
+      color: var(--ui-button-secondary-hover-text-color, #020e28);
+      border-color: var(--ui-button-secondary-hover-border-color, #020e28);
       background-color: #d0d0d0;
     }
   `;

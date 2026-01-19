@@ -7,10 +7,13 @@ export default {
   component: 'ui-amount',
   argTypes: {
     value: { control: 'number' },
-    currency: { control: 'text' },
     locale: {
       control: 'select',
       options: ['en-US', 'es-ES', 'de-DE', 'fr-FR', 'ja-JP', 'en-GB'],
+    },
+    currency: {
+      control: 'select',
+      options: ['$', '€', '£', '¥', '₣', '₹', 'kr'],
     },
     currencyPosition: {
       control: 'select',
@@ -46,54 +49,14 @@ const Template = ({
   ></ui-amount>
 `;
 
-export const Default = Template.bind({});
-Default.args = {
+export const Amounts = Template.bind({});
+Amounts.args = {
   value: 1234.56,
   currency: '€',
   locale: 'es-ES',
   currencyPosition: 'after',
   size: 'm',
   trend: 'none',
-};
-
-export const USDollar = Template.bind({});
-USDollar.args = {
-  value: 5000.0,
-  currency: '$',
-  locale: 'en-US',
-  currencyPosition: 'before',
-  size: 'l',
-  trend: 'up',
-};
-
-export const GBPound = Template.bind({});
-GBPound.args = {
-  value: 789.99,
-  currency: '£',
-  locale: 'en-GB',
-  currencyPosition: 'before',
-  size: 'm',
-  trend: 'down',
-};
-
-export const Bitcoin = Template.bind({});
-Bitcoin.args = {
-  value: 0.05432,
-  currency: '₿',
-  locale: 'en-US',
-  currencyPosition: 'before',
-  size: 's',
-  trend: 'none',
-};
-
-export const CustomPoints = Template.bind({});
-CustomPoints.args = {
-  value: 9999.99,
-  currency: 'pts',
-  locale: 'es-ES',
-  currencyPosition: 'after',
-  size: 'xl',
-  trend: 'up',
 };
 
 export const AllSizes = () => html`
@@ -104,12 +67,12 @@ export const AllSizes = () => html`
         >Size: s</label
       >
       <ui-amount
-        .value=${1234.56}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'s'}
-        .trend=${'up'}
+        .value="1234.56"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="s"
+        trend="up"
       ></ui-amount>
     </div>
     <div>
@@ -117,12 +80,12 @@ export const AllSizes = () => html`
         >Size: m</label
       >
       <ui-amount
-        .value=${1234.56}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
-        .trend=${'up'}
+        .value="1234.56"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="m"
+        trend="up"
       ></ui-amount>
     </div>
     <div>
@@ -130,12 +93,12 @@ export const AllSizes = () => html`
         >Size: l</label
       >
       <ui-amount
-        .value=${1234.56}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'l'}
-        .trend=${'up'}
+        .value="1234.56"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="l"
+        trend="up"
       ></ui-amount>
     </div>
     <div>
@@ -143,12 +106,12 @@ export const AllSizes = () => html`
         >Size: xl</label
       >
       <ui-amount
-        .value=${1234.56}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'xl'}
-        .trend=${'up'}
+        .value="1234.56"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="xl"
+        trend="up"
       ></ui-amount>
     </div>
   </div>
@@ -166,12 +129,12 @@ export const AllTrends = () => html`
         >Trend: up</label
       >
       <ui-amount
-        .value=${5000.0}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
-        .trend=${'up'}
+        .value="5000.0"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="m"
+        trend="up"
       ></ui-amount>
     </div>
     <div>
@@ -179,12 +142,12 @@ export const AllTrends = () => html`
         >Trend: down</label
       >
       <ui-amount
-        .value=${-1234.56}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
-        .trend=${'down'}
+        .value="-1234.56"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="m"
+        trend="down"
       ></ui-amount>
     </div>
     <div>
@@ -192,12 +155,12 @@ export const AllTrends = () => html`
         >Trend: none</label
       >
       <ui-amount
-        .value=${1234.56}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
-        .trend=${'none'}
+        .value="1234.56"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="m"
+        trend="none"
       ></ui-amount>
     </div>
   </div>
@@ -207,7 +170,7 @@ AllTrends.parameters = {
   controls: { hideNoControlsWarning: true, disable: true },
 };
 
-export const AllLocales = () => html`
+export const SomeLocales = () => html`
   <ui-icon-set></ui-icon-set>
   <div style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem;">
     <div>
@@ -215,11 +178,11 @@ export const AllLocales = () => html`
         >en-US</label
       >
       <ui-amount
-        .value=${12345.67}
-        .currency=${'$'}
-        .locale=${'en-US'}
-        .currencyPosition=${'before'}
-        .size=${'m'}
+        .value="12345.67"
+        currency="$"
+        locale="en-US"
+        currencyPosition="before"
+        size="m"
       ></ui-amount>
     </div>
     <div>
@@ -227,11 +190,11 @@ export const AllLocales = () => html`
         >es-ES</label
       >
       <ui-amount
-        .value=${12345.67}
-        .currency=${'€'}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
+        .value="12345.67"
+        currency="€"
+        locale="es-ES"
+        currencyPosition="after"
+        size="m"
       ></ui-amount>
     </div>
     <div>
@@ -239,11 +202,11 @@ export const AllLocales = () => html`
         >de-DE</label
       >
       <ui-amount
-        .value=${12345.67}
-        .currency=${'€'}
-        .locale=${'de-DE'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
+        .value="12345.67"
+        currency="€"
+        locale="de-DE"
+        currencyPosition="after"
+        size="m"
       ></ui-amount>
     </div>
     <div>
@@ -251,11 +214,11 @@ export const AllLocales = () => html`
         >fr-FR</label
       >
       <ui-amount
-        .value=${12345.67}
-        .currency=${'€'}
-        .locale=${'fr-FR'}
-        .currencyPosition=${'after'}
-        .size=${'m'}
+        .value="12345.67"
+        currency="€"
+        locale="fr-FR"
+        currencyPosition="after"
+        size="m"
       ></ui-amount>
     </div>
     <div>
@@ -263,11 +226,11 @@ export const AllLocales = () => html`
         >ja-JP</label
       >
       <ui-amount
-        .value=${12345.67}
-        .currency=${'¥'}
-        .locale=${'ja-JP'}
-        .currencyPosition=${'before'}
-        .size=${'m'}
+        .value="12345.67"
+        currency="¥"
+        locale="ja-JP"
+        currencyPosition="before"
+        size="m"
       ></ui-amount>
     </div>
     <div>
@@ -275,16 +238,16 @@ export const AllLocales = () => html`
         >en-GB</label
       >
       <ui-amount
-        .value=${12345.67}
-        .currency=${'£'}
-        .locale=${'en-GB'}
-        .currencyPosition=${'before'}
-        .size=${'m'}
+        .value="12345.67"
+        currency="£"
+        locale="en-GB"
+        currencyPosition="before"
+        size="m"
       ></ui-amount>
     </div>
   </div>
 `;
 
-AllLocales.parameters = {
+SomeLocales.parameters = {
   controls: { hideNoControlsWarning: true, disable: true },
 };

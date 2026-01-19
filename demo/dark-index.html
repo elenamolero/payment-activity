@@ -7,6 +7,16 @@
     body {
       margin: 0;
     }
+    payment-widget {
+      --payment-widget-text-color: #ffffff; 
+      --payment-widget-bg-color: #061f33;  
+      --payment-widget-status-badge-background-color: #063154;
+      --payment-widget-bullets-color: #063154;
+      --payment-widget-button-primary-bg: #ffffff;
+      --payment-widget-button-primary-text: #061f33;
+      --payment-widget-button-secondary-bg: #1a4d70;
+      --payment-widget-button-secondary-text: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -30,11 +40,6 @@
       category: 'Transfer',
       description: 'Payment to Elena Molero Padilla',
       bullets: ['Zara white trousers', 'Nike running shoes', 'Huda Beauty lipstick'],
-      primaryButtonLabel: 'Confirm',
-      primaryButtonVariant: 'primary',
-      secondaryButtonLabel: 'Go to web',
-      secondaryButtonVariant: 'secondary',
-      secondaryButtonHref: 'https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html'
     };
 
     
@@ -54,11 +59,6 @@
             .category=${paymentData.category}
             .description=${paymentData.description}
             .bullets=${paymentData.bullets}
-            .primaryButtonLabel=${paymentData.primaryButtonLabel}
-            .primaryButtonVariant=${paymentData.primaryButtonVariant}
-            .secondaryButtonLabel=${paymentData.secondaryButtonLabel}
-            .secondaryButtonVariant=${paymentData.secondaryButtonVariant}
-            .secondaryButtonHref=${paymentData.secondaryButtonHref}
          ></payment-widget>
       `,
       document.querySelector('#demo')

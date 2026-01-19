@@ -30,6 +30,11 @@
       category: 'Transfer',
       description: 'Payment to Elena Molero Padilla',
       bullets: ['Zara white trousers', 'Nike running shoes', 'Huda Beauty lipstick'],
+      primaryButtonLabel: 'Confirm',
+      primaryButtonVariant: 'primary',
+      secondaryButtonLabel: 'Go to web',
+      secondaryButtonVariant: 'secondary',
+      secondaryButtonHref: 'https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html'
     };
 
     
@@ -49,6 +54,11 @@
             .category=${paymentData.category}
             .description=${paymentData.description}
             .bullets=${paymentData.bullets}
+            .primaryButtonLabel=${paymentData.primaryButtonLabel}
+            .primaryButtonVariant=${paymentData.primaryButtonVariant}
+            .secondaryButtonLabel=${paymentData.secondaryButtonLabel}
+            .secondaryButtonVariant=${paymentData.secondaryButtonVariant}
+            .secondaryButtonHref=${paymentData.secondaryButtonHref}
          ></payment-widget>
       `,
       document.querySelector('#demo')

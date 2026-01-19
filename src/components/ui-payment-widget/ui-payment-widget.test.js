@@ -16,6 +16,60 @@ describe('PaymentWidget', () => {
     iconSets.forEach(iconSet => iconSet.remove());
   });
 
+  it('renders primary button with custom label and variant', async () => {
+    el = await fixture(
+      html`<payment-widget
+        .primaryButtonLabel=${'Accept Payment'}
+        .primaryButtonVariant=${'secondary'}
+      ></payment-widget>`,
+    );
+    await el.updateComplete;
+
+    const primaryButton = el.shadowRoot.querySelectorAll('ui-button')[0];
+    expect(primaryButton.label).to.equal('Accept Payment');
+    expect(primaryButton.variant).to.equal('secondary');
+  });
+
+  it('renders secondary button with custom label, variant and href', async () => {
+    el = await fixture(
+      html`<payment-widget
+        .secondaryButtonLabel=${'Learn More'}
+        .secondaryButtonVariant=${'primary'}
+        .secondaryButtonHref=${'https://example.com'}
+      ></payment-widget>`,
+    );
+    await el.updateComplete;
+
+    const secondaryButton = el.shadowRoot.querySelectorAll('ui-button')[1];
+    expect(secondaryButton.label).to.equal('Learn More');
+    expect(secondaryButton.variant).to.equal('primary');
+    expect(secondaryButton.href).to.equal('https://example.com');
+  });
+
+  it('updates button properties dynamically', async () => {
+    el = await fixture(
+      html`<payment-widget
+        .primaryButtonLabel=${'Confirm'}
+        .secondaryButtonLabel=${'Cancel'}
+      ></payment-widget>`,
+    );
+    await el.updateComplete;
+
+    const [primaryButton, secondaryButton] =
+      el.shadowRoot.querySelectorAll('ui-button');
+    expect(primaryButton.label).to.equal('Confirm');
+    expect(secondaryButton.label).to.equal('Cancel');
+
+    el.primaryButtonLabel = 'Accept';
+    el.secondaryButtonLabel = 'Reject';
+    await el.updateComplete;
+
+    const [updatedPrimaryButton, updatedSecondaryButton] =
+      el.shadowRoot.querySelectorAll('ui-button');
+    expect(updatedPrimaryButton.label).to.equal('Accept');
+    expect(updatedSecondaryButton.label).to.equal('Reject');
+  });
+
   it('renders with default properties', async () => {
     el = await fixture(html`<payment-widget></payment-widget>`);
     await el.updateComplete;

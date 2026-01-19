@@ -19,6 +19,12 @@ export class PaymentWidget extends LitElement {
     category: { type: String },
     description: { type: String },
     bullets: { type: Array },
+
+    primaryButtonLabel: { type: String },
+    primaryButtonVariant: { type: String },
+    secondaryButtonLabel: { type: String },
+    secondaryButtonVariant: { type: String },
+    secondaryButtonHref: { type: String },
   };
 
   constructor() {
@@ -36,6 +42,13 @@ export class PaymentWidget extends LitElement {
     this.category = 'Transfer';
     this.description = '';
     this.bullets = [];
+
+    this.primaryButtonLabel = 'Confirm';
+    this.primaryButtonVariant = 'primary';
+    this.secondaryButtonLabel = 'Go to web';
+    this.secondaryButtonVariant = 'secondary';
+    this.secondaryButtonHref =
+      'https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html';
   }
 
   _onPrimaryClick() {
@@ -175,8 +188,9 @@ export class PaymentWidget extends LitElement {
           <h2 id="actions-heading" class="visually-hidden">Actions</h2>
 
           <ui-button
-            label="Confirm"
-            variant="primary"
+            id="primary-button"
+            .label=${this.primaryButtonLabel}
+            .variant=${this.primaryButtonVariant}
             @ui-button-click=${this._onPrimaryClick}
             aria-describedby="confirm-description"
           ></ui-button>
@@ -185,9 +199,10 @@ export class PaymentWidget extends LitElement {
           >
 
           <ui-button
-            label="Go to web"
-            variant="secondary"
-            href="https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html"
+            id="secondary-button"
+            .label=${this.secondaryButtonLabel}
+            .variant=${this.secondaryButtonVariant}
+            .href=${this.secondaryButtonHref}
             @ui-button-click=${this._onSecondaryClick}
             aria-describedby="go-to-web"
           ></ui-button>
@@ -205,6 +220,12 @@ export class PaymentWidget extends LitElement {
       --payment-widget-text-color: #070e46;
       --payment-widget-bg-color: #ffffff;
       --payment-widget-amount-text-color: var(--payment-widget-text-color);
+      --payment-widget-primary-button-label: 'Confirm';
+      --payment-widget-primary-button-variant: 'primary';
+      --payment-widget-secondary-button-label: 'Go to web';
+      --payment-widget-secondary-button-variant: 'secondary';
+      --payment-widget-secondary-button-href: 'https://www.bbva.es/en/general/hazte-cliente/abrir-cuenta-bancaria-online.html';
+
       min-height: 100vh;
       font-family: sans-serif, Arial, Helvetica;
       color: var(--payment-widget-text-color);

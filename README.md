@@ -41,8 +41,7 @@ To run a local instance of Storybook, run
 ```bash
 npm run storybook
 ```
-## Technical decitions
-
+## Run the project
 
 ```bash
 npm start
@@ -53,7 +52,7 @@ To run a local development server that serves the basic demo located in `demo/in
 ## Technical Decisions
 
 ### Design Interpretations
-* **Transaction Context:** The parent component is interpreted as a payment transaction card. To represent this meaning, buttons are assigned specific semantic meanings within this context, utilizing the ui-button subcomponent to ensure consistency and ease of integration. Anyway, you can custom their properties with abstraction in the main component.
+* **Transaction Context:** The parent component is interpreted as a payment transaction card. To represent this meaning, buttons are assigned specific semantic meanings within this context, using the ui-button subcomponent to ensure consistency and ease of integration. Anyway, you can custom their properties with abstraction in the main component.
 * **Accessibility & Semantics:** The element labeled "Link" is semantically implemented as an anchor (link) but styled visually as a button. This ensures the component meets web accessibility standards while maintaining the intended design aesthetic.
 * **Financial Indicators:** The amount displayed in the upper right corner is interpreted as the account balance. It includes an icon that dynamically represents whether the financial trend is positive or negative.
 
@@ -63,7 +62,7 @@ To run a local development server that serves the basic demo located in `demo/in
     * **Amount:** Specifically designed to represent monetary values and currencies.
     * **Icon:** A centralized system for managing visual assets.
 * **DOM Strategy (Shadow vs. Light):** While most components use Shadow DOM to maintain strict style encapsulation, the Icon component works within the Light DOM. This specific decision allows the icon component to be easily ported to other projects, enabling developers to define a new iconSet as needed without having to edit the icon component.
-* **Theming:** A dark-index.html, is provided to demonstrate the main component's Dark Mode capabilities, highlighting its reusability and visual flexibility keeping its meaning. 
+* **Theming:** A dark-index.html is provided to demonstrate the main component's Dark Mode capabilities, highlighting its reusability and visual flexibility keeping its meaning. 
 
 ## Accessibility Considerations
 

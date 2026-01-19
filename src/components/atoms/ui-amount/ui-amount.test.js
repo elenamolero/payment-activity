@@ -16,7 +16,7 @@ describe('UiAmount', () => {
   });
 
   it('renders with default properties', async () => {
-    const el = await fixture(html`<ui-amount></ui-amount>`);
+    const el = await fixture(html`<ui-amount .locale=${'en-US'}></ui-amount>`);
     const span = el.shadowRoot.querySelector('.ui-amount__value');
     expect(span).to.exist;
     expect(span.textContent).to.include('€');
@@ -24,10 +24,15 @@ describe('UiAmount', () => {
   });
 
   it('formats value with currency symbol', async () => {
-    const el = await fixture(html`<ui-amount .value=${1234.56}></ui-amount>`);
+    const el = await fixture(
+      html`<ui-amount
+        .value=${1234.56}
+        .locale=${'en-US'}
+        .currencyPosition=${'after'}
+      ></ui-amount>`,
+    );
     const span = el.shadowRoot.querySelector('.ui-amount__value');
-    expect(span.textContent).to.include('1234');
-    expect(span.textContent).to.include('56');
+    expect(span.textContent).to.include('1,234.56');
     expect(span.textContent).to.include('€');
   });
 
@@ -37,6 +42,7 @@ describe('UiAmount', () => {
         .value=${100}
         .currency=${'$'}
         .currencyPosition=${'before'}
+        .locale=${'en-US'}
       ></ui-amount>`,
     );
     const span = el.shadowRoot.querySelector('.ui-amount__value');
@@ -49,22 +55,11 @@ describe('UiAmount', () => {
         .value=${100}
         .currency=${'€'}
         .currencyPosition=${'after'}
+        .locale=${'en-US'}
       ></ui-amount>`,
     );
     const span = el.shadowRoot.querySelector('.ui-amount__value');
     expect(span.textContent.trim().endsWith('€')).to.be.true;
-  });
-
-  it('formats numbers according to locale es-ES', async () => {
-    const el = await fixture(
-      html`<ui-amount
-        .value=${1234.56}
-        .locale=${'es-ES'}
-        .currencyPosition=${'after'}
-      ></ui-amount>`,
-    );
-    const span = el.shadowRoot.querySelector('.ui-amount__value');
-    expect(span.textContent).to.include('1234,56');
   });
 
   it('formats numbers according to locale es-ES', async () => {
@@ -109,47 +104,128 @@ describe('UiAmount', () => {
         .value=${100}
         .currency=${'₿'}
         .currencyPosition=${'before'}
+        .locale=${'en-US'}
       ></ui-amount>`,
     );
     const span = el.shadowRoot.querySelector('.ui-amount__value');
     expect(span.textContent).to.include('₿');
   });
 
-  it('renders with size s', async () => {
+  it('renders with size s (en-US)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .size=${'s'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .size=${'s'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
     );
     const amount = el.shadowRoot.querySelector('.ui-amount');
     expect(amount.classList.contains('ui-amount--s')).to.be.true;
   });
 
-  it('renders with size m', async () => {
+  it('renders with size s (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .size=${'m'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .size=${'s'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
+    );
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    expect(amount.classList.contains('ui-amount--s')).to.be.true;
+  });
+
+  it('renders with size m (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'m'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
     );
     const amount = el.shadowRoot.querySelector('.ui-amount');
     expect(amount.classList.contains('ui-amount--m')).to.be.true;
   });
 
-  it('renders with size l', async () => {
+  it('renders with size m (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .size=${'l'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .size=${'m'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
+    );
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    expect(amount.classList.contains('ui-amount--m')).to.be.true;
+  });
+
+  it('renders with size l (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'l'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
     );
     const amount = el.shadowRoot.querySelector('.ui-amount');
     expect(amount.classList.contains('ui-amount--l')).to.be.true;
   });
 
-  it('renders with size xl', async () => {
+  it('renders with size l (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .size=${'xl'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .size=${'l'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
+    );
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    expect(amount.classList.contains('ui-amount--l')).to.be.true;
+  });
+
+  it('renders with size xl (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'xl'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
     );
     const amount = el.shadowRoot.querySelector('.ui-amount');
     expect(amount.classList.contains('ui-amount--xl')).to.be.true;
   });
 
-  it('defaults to size m for invalid size', async () => {
+  it('renders with size xl (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .size=${'invalid'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .size=${'xl'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
+    );
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    expect(amount.classList.contains('ui-amount--xl')).to.be.true;
+  });
+
+  it('defaults to size m for invalid size (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'invalid'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
+    );
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    expect(amount.classList.contains('ui-amount--m')).to.be.true;
+  });
+
+  it('defaults to size m for invalid size (es-ES)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'invalid'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
     );
     const amount = el.shadowRoot.querySelector('.ui-amount');
     expect(amount.classList.contains('ui-amount--m')).to.be.true;
@@ -191,7 +267,7 @@ describe('UiAmount', () => {
     expect(icon).to.not.exist;
   });
 
-  it('formats negative values correctly', async () => {
+  it('formats negative values correctly (en-US)', async () => {
     const el = await fixture(
       html`<ui-amount
         .value=${-1234.56}
@@ -204,16 +280,46 @@ describe('UiAmount', () => {
     expect(span.textContent).to.include('-');
   });
 
-  it('formats zero value correctly', async () => {
+  it('formats negative values correctly (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${0} .currency=${'€'}></ui-amount>`,
+      html`<ui-amount
+        .value=${-1234.56}
+        .currency=${'€'}
+        .locale=${'es-ES'}
+        .currencyPosition=${'after'}
+      ></ui-amount>`,
+    );
+    const span = el.shadowRoot.querySelector('.ui-amount__value');
+    expect(span.textContent).to.include('-');
+  });
+
+  it('formats zero value correctly (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${0}
+        .currency=${'€'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
     );
     const span = el.shadowRoot.querySelector('.ui-amount__value');
     expect(span.textContent).to.include('0');
     expect(span.textContent).to.include('€');
   });
 
-  it('formats large values correctly', async () => {
+  it('formats zero value correctly (es-ES)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${0}
+        .currency=${'€'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
+    );
+    const span = el.shadowRoot.querySelector('.ui-amount__value');
+    expect(span.textContent).to.include('0');
+    expect(span.textContent).to.include('€');
+  });
+
+  it('formats large values correctly (en-US)', async () => {
     const el = await fixture(
       html`<ui-amount
         .value=${1000000.99}
@@ -225,17 +331,60 @@ describe('UiAmount', () => {
     expect(span.textContent).to.match(/1.*000.*000.*99/);
   });
 
-  it('updates when value changes', async () => {
-    const el = await fixture(html`<ui-amount .value=${100}></ui-amount>`);
+  it('formats large values correctly (es-ES)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${1000000.99}
+        .locale=${'es-ES'}
+        .currencyPosition=${'after'}
+      ></ui-amount>`,
+    );
+    const span = el.shadowRoot.querySelector('.ui-amount__value');
+    expect(span.textContent).to.match(/1.*000.*000.*99/);
+  });
+
+  it('updates when value changes (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount .value=${100} .locale=${'en-US'}></ui-amount>`,
+    );
     el.value = 200;
     await el.updateComplete;
     const span = el.shadowRoot.querySelector('.ui-amount__value');
     expect(span.textContent).to.include('200');
   });
 
-  it('updates when currency changes', async () => {
+  it('updates when value changes (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .currency=${'€'}></ui-amount>`,
+      html`<ui-amount .value=${100} .locale=${'es-ES'}></ui-amount>`,
+    );
+    el.value = 200;
+    await el.updateComplete;
+    const span = el.shadowRoot.querySelector('.ui-amount__value');
+    expect(span.textContent).to.include('200');
+  });
+
+  it('updates when currency changes (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .currency=${'€'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
+    );
+    el.currency = '$';
+    el.currencyPosition = 'before';
+    await el.updateComplete;
+    const span = el.shadowRoot.querySelector('.ui-amount__value');
+    expect(span.textContent).to.include('$');
+  });
+
+  it('updates when currency changes (es-ES)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .currency=${'€'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
     );
     el.currency = '$';
     el.currencyPosition = 'before';
@@ -262,9 +411,13 @@ describe('UiAmount', () => {
     ).to.equal('12.345,67 €');
   });
 
-  it('updates when trend changes', async () => {
+  it('updates when trend changes (en-US)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .trend=${'none'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .trend=${'none'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
     );
     expect(el.shadowRoot.querySelector('ui-icon')).to.not.exist;
     el.trend = 'up';
@@ -274,9 +427,49 @@ describe('UiAmount', () => {
     expect(icon.getAttribute('name')).to.equal('caret-up');
   });
 
-  it('updates when size changes', async () => {
+  it('updates when trend changes (es-ES)', async () => {
     const el = await fixture(
-      html`<ui-amount .value=${100} .size=${'m'}></ui-amount>`,
+      html`<ui-amount
+        .value=${100}
+        .trend=${'none'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
+    );
+    expect(el.shadowRoot.querySelector('ui-icon')).to.not.exist;
+    el.trend = 'up';
+    await el.updateComplete;
+    const icon = el.shadowRoot.querySelector('ui-icon');
+    expect(icon).to.exist;
+    expect(icon.getAttribute('name')).to.equal('caret-up');
+  });
+
+  it('updates when size changes (en-US)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'m'}
+        .locale=${'en-US'}
+      ></ui-amount>`,
+    );
+    expect(
+      el.shadowRoot
+        .querySelector('.ui-amount')
+        .classList.contains('ui-amount--m'),
+    ).to.be.true;
+    el.size = 'xl';
+    await el.updateComplete;
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    expect(amount.classList.contains('ui-amount--xl')).to.be.true;
+    expect(amount.classList.contains('ui-amount--m')).to.be.false;
+  });
+
+  it('updates when size changes (es-ES)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${100}
+        .size=${'m'}
+        .locale=${'es-ES'}
+      ></ui-amount>`,
     );
     expect(
       el.shadowRoot
@@ -308,12 +501,12 @@ describe('UiAmount', () => {
     expect(UiAmount._validatePosition('invalid')).to.equal('after');
   });
 
-  it('renders with all properties combined', async () => {
+  it('renders with all properties combined (en-US)', async () => {
     const el = await fixture(
       html`<ui-amount
         .value=${54321.99}
-        .currency=${'CHF'}
-        .locale=${'de-DE'}
+        .currency=${'$'}
+        .locale=${'en-US'}
         .size=${'l'}
         .trend=${'up'}
         .currencyPosition=${'before'}
@@ -323,7 +516,27 @@ describe('UiAmount', () => {
     const span = el.shadowRoot.querySelector('.ui-amount__value');
     const icon = el.shadowRoot.querySelector('ui-icon');
     expect(amount.classList.contains('ui-amount--l')).to.be.true;
-    expect(span.textContent).to.equal('CHF 54.321,99');
+    expect(span.textContent).to.equal('$ 54,321.99');
+    expect(icon).to.exist;
+    expect(icon.getAttribute('name')).to.equal('caret-up');
+  });
+
+  it('renders with all properties combined (es-ES)', async () => {
+    const el = await fixture(
+      html`<ui-amount
+        .value=${54321.99}
+        .currency=${'€'}
+        .locale=${'es-ES'}
+        .size=${'l'}
+        .trend=${'up'}
+        .currencyPosition=${'after'}
+      ></ui-amount>`,
+    );
+    const amount = el.shadowRoot.querySelector('.ui-amount');
+    const span = el.shadowRoot.querySelector('.ui-amount__value');
+    const icon = el.shadowRoot.querySelector('ui-icon');
+    expect(amount.classList.contains('ui-amount--l')).to.be.true;
+    expect(span.textContent).to.equal('54.321,99 €');
     expect(icon).to.exist;
     expect(icon.getAttribute('name')).to.equal('caret-up');
   });

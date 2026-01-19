@@ -2,13 +2,45 @@ import { LitElement, html, css } from 'lit';
 import '../ui-icon/ui-icon.js';
 import '../ui-icon/ui-icon-set.js';
 
+/**
+ * @class UiAmount
+ * @extends LitElement
+ * @description
+ * A specialized component for displaying monetary amounts with currency symbols, locale-aware formatting,
+ * and visual trend indicators. Supports multiple sizes and custom colors.
+ *
+ * The component intelligently formats numbers based on the locale (en-US, es-ES, de-DE, etc.) and positions
+ * the currency symbol before or after the amount. Optional trend icons (up/down) provide visual indicators
+ * for financial changes.
+ */
 export class UiAmount extends LitElement {
+  /**
+   * @typedef {Object} UiAmountProperties
+   * @property {number} value - The monetary amount to display
+   * @property {string} currency - Currency symbol (€, $, £, ¥, etc.)
+   * @property {string} size - Component size (s, m, l, xl)
+   * @property {string} trend - Trend indicator ('up', 'down', 'none')
+   * @property {string} locale - BCP 47 language tag (en-US, es-ES, de-DE, etc.)
+   * @property {string} currencyPosition - Currency symbol position ('before' or 'after')
+   */
+
   static properties = {
+    /** @type {number} The monetary amount value to format and display */
     value: { type: Number },
+
+    /** @type {string} Currency symbol displayed with the amount */
     currency: { type: String },
+
+    /** @type {string} The display size of the component (s, m, l, xl) */
     size: { type: String },
+
+    /** @type {string} Visual trend indicator for the amount ('up', 'down', 'none') */
     trend: { type: String },
+
+    /** @type {string} BCP 47 language tag for locale-specific number formatting */
     locale: { type: String },
+
+    /** @type {string} Position of the currency symbol relative to the amount ('before'|'after') */
     currencyPosition: { type: String },
   };
 

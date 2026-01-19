@@ -1,10 +1,36 @@
 import { LitElement, html, css } from 'lit';
 
+/**
+ * @class UiButton
+ * @extends LitElement
+ * @description
+ * A versatile button component that renders either as a semantic button or link element.
+ * Supports primary and secondary variants with full keyboard accessibility and customizable styling.
+ *
+ * The component intelligently switches between button and link rendering based on the href property.
+ * When href is provided, it renders as an anchor tag that opens in a new tab. Otherwise, it renders
+ * as a standard button element with keyboard event handling.
+ */
 export class UiButton extends LitElement {
+  /**
+   * @typedef {Object} UiButtonProperties
+   * @property {string} label - The text displayed on the button
+   * @property {string} variant - Button style variant (primary or secondary)
+   * @property {boolean} disabled - Disables the button and prevents interactions
+   * @property {string} href - URL for link mode, renders as anchor when provided
+   */
+
   static properties = {
+    /** @type {string} The text label displayed on the button */
     label: { type: String },
+
+    /** @type {string} The button style variant ('primary'|'secondary') */
     variant: { type: String },
+
+    /** @type {boolean} Disables the button and prevents all interactions */
     disabled: { type: Boolean },
+
+    /** @type {string} URL for link mode, renders as anchor tag when provided */
     href: { type: String },
   };
 

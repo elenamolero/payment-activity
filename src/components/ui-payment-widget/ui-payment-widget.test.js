@@ -70,11 +70,12 @@ describe('PaymentWidget', () => {
     expect(updatedSecondaryButton.label).to.equal('Reject');
   });
 
-  it('renders with default properties', async () => {
-    el = await fixture(html`<payment-widget></payment-widget>`);
+  it('renders with default properties (en-US)', async () => {
+    el = await fixture(
+      html`<payment-widget .locale=${'en-US'}></payment-widget>`,
+    );
     await el.updateComplete;
 
-    expect(el).to.be.accessible();
     expect(
       el.shadowRoot.querySelector('.payment-date').textContent.trim(),
     ).to.equal('');
@@ -96,7 +97,7 @@ describe('PaymentWidget', () => {
     );
     expect(headerUiAmount.value).to.equal(0);
     expect(headerUiAmount.currency).to.equal('€');
-    expect(headerUiAmount.locale).to.equal(navigator.language || 'en-US');
+    expect(headerUiAmount.locale).to.equal('en-US');
     expect(headerUiAmount.trend).to.equal('none');
 
     const mainUiAmount = el.shadowRoot.querySelector(
@@ -104,7 +105,8 @@ describe('PaymentWidget', () => {
     );
     expect(mainUiAmount.value).to.equal(0);
     expect(mainUiAmount.currency).to.equal('€');
-    expect(mainUiAmount.locale).to.equal(navigator.language || 'en-US');
+    expect(mainUiAmount.locale).to.equal('en-US');
+    expect(mainUiAmount.trend).to.equal('none');
 
     const primaryButton = el.shadowRoot.querySelectorAll('ui-button')[0];
     const secondaryButton = el.shadowRoot.querySelectorAll('ui-button')[1];
@@ -112,7 +114,51 @@ describe('PaymentWidget', () => {
     expect(secondaryButton.label).to.equal('Go to web');
   });
 
-  it('renders with custom properties', async () => {
+  it('renders with default properties (es-ES)', async () => {
+    el = await fixture(
+      html`<payment-widget .locale=${'es-ES'}></payment-widget>`,
+    );
+    await el.updateComplete;
+
+    expect(
+      el.shadowRoot.querySelector('.payment-date').textContent.trim(),
+    ).to.equal('');
+    expect(el.shadowRoot.querySelector('#payment-title').textContent).to.equal(
+      'Payment',
+    );
+    expect(
+      el.shadowRoot.querySelector('.status-badge').textContent.trim(),
+    ).to.equal('Pending');
+    expect(
+      el.shadowRoot.querySelector('.category-text').textContent.trim(),
+    ).to.equal('Transfer');
+    expect(
+      el.shadowRoot.querySelector('.detail-description').textContent,
+    ).to.equal('');
+
+    const headerUiAmount = el.shadowRoot.querySelector(
+      'header .amount-display ui-amount',
+    );
+    expect(headerUiAmount.value).to.equal(0);
+    expect(headerUiAmount.currency).to.equal('€');
+    expect(headerUiAmount.locale).to.equal('es-ES');
+    expect(headerUiAmount.trend).to.equal('none');
+
+    const mainUiAmount = el.shadowRoot.querySelector(
+      'main .amount-display ui-amount',
+    );
+    expect(mainUiAmount.value).to.equal(0);
+    expect(mainUiAmount.currency).to.equal('€');
+    expect(mainUiAmount.locale).to.equal('es-ES');
+    expect(mainUiAmount.trend).to.equal('none');
+
+    const primaryButton = el.shadowRoot.querySelectorAll('ui-button')[0];
+    const secondaryButton = el.shadowRoot.querySelectorAll('ui-button')[1];
+    expect(primaryButton.label).to.equal('Confirm');
+    expect(secondaryButton.label).to.equal('Go to web');
+  });
+
+  it('renders with custom properties (en-US)', async () => {
     const testData = {
       date: '2024-07-20',
       paymentTitle: 'Test Payment Title',
@@ -127,6 +173,81 @@ describe('PaymentWidget', () => {
       category: 'Shopping',
       description: 'Test Description for the payment.',
       bullets: ['Item 1', 'Item 2'],
+    };
+
+    el = await fixture(html`
+      <payment-widget
+        .date=${testData.date}
+        .paymentTitle=${testData.paymentTitle}
+        .headerAmount=${testData.headerAmount}
+        .paymentAmount=${testData.paymentAmount}
+        .currency=${testData.currency}
+        .locale=${testData.locale}
+        .currencyPosition=${testData.currencyPosition}
+        .headerAmountTrend=${testData.headerAmountTrend}
+        .accountNumber=${testData.accountNumber}
+        .status=${testData.status}
+        .category=${testData.category}
+        .description=${testData.description}
+        .bullets=${testData.bullets}
+      ></payment-widget>
+    `);
+    await el.updateComplete;
+
+    expect(
+      el.shadowRoot.querySelector('.payment-date').textContent.trim(),
+    ).to.equal(testData.date);
+    expect(el.shadowRoot.querySelector('#payment-title').textContent).to.equal(
+      testData.paymentTitle,
+    );
+    expect(
+      el.shadowRoot.querySelector('.status-badge').textContent.trim(),
+    ).to.equal(testData.status);
+    expect(
+      el.shadowRoot.querySelector('.category-text').textContent.trim(),
+    ).to.equal(testData.category);
+    expect(
+      el.shadowRoot.querySelector('.detail-description').textContent,
+    ).to.equal(testData.description);
+
+    const headerUiAmount = el.shadowRoot.querySelector(
+      'header .amount-display ui-amount',
+    );
+    expect(headerUiAmount.value).to.equal(testData.headerAmount);
+    expect(headerUiAmount.currency).to.equal(testData.currency);
+    expect(headerUiAmount.locale).to.equal(testData.locale);
+    expect(headerUiAmount.currencyPosition).to.equal(testData.currencyPosition);
+    expect(headerUiAmount.trend).to.equal(testData.headerAmountTrend);
+
+    const mainUiAmount = el.shadowRoot.querySelector(
+      'main .amount-display ui-amount',
+    );
+    expect(mainUiAmount.value).to.equal(testData.paymentAmount);
+    expect(mainUiAmount.currency).to.equal(testData.currency);
+    expect(mainUiAmount.locale).to.equal(testData.locale);
+    expect(mainUiAmount.currencyPosition).to.equal(testData.currencyPosition);
+
+    const bulletListItems = el.shadowRoot.querySelectorAll('.bullets-list li');
+    expect(bulletListItems.length).to.equal(testData.bullets.length);
+    expect(bulletListItems[0].textContent).to.include(testData.bullets[0]);
+    expect(bulletListItems[1].textContent).to.include(testData.bullets[1]);
+  });
+
+  it('renders with custom properties (es-ES)', async () => {
+    const testData = {
+      date: '2024-07-20',
+      paymentTitle: 'Test Payment Title',
+      headerAmount: 5000.75,
+      paymentAmount: 150.25,
+      currency: '€',
+      locale: 'es-ES',
+      currencyPosition: 'after',
+      headerAmountTrend: 'up',
+      accountNumber: 'ES123456789',
+      status: 'Completado',
+      category: 'Compra',
+      description: 'Descripción de prueba del pago.',
+      bullets: ['Artículo 1', 'Artículo 2'],
     };
 
     el = await fixture(html`

@@ -1,11 +1,34 @@
 import { LitElement, html } from 'lit';
 
+/**
+ * @class UiIcon
+ * @extends LitElement
+ * @description A lightweight, accessible icon component that renders SVG icons from a centralized icon set
+ */
 export class UiIcon extends LitElement {
+  /**
+   * @typedef {Object} UiIconProperties
+   * @property {string} name - The icon identifier matching a symbol in ui-icon-set
+   * @property {string} description - Accessible description text for the icon
+   * @property {string} size - Icon size (xs, s, default, m, l, xl)
+   * @property {string} color - SVG fill color (CSS color value or currentColor)
+   * @property {boolean} decorative - If true, hides icon from screen readers
+   */
+
   static properties = {
+    /** @type {string} Icon identifier matching a symbol id in ui-icon-set */
     name: { type: String },
+
+    /** @type {string} Accessible description text for screen readers */
     description: { type: String },
+
+    /** @type {string} Icon size (xs, s, default, m, l, xl) */
     size: { type: String },
+
+    /** @type {string} SVG fill color (hex, rgb, hsl, or currentColor) */
     color: { type: String },
+
+    /** @type {boolean} If true, hides icon from screen readers */
     decorative: { type: Boolean },
   };
 

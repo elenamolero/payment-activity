@@ -1,6 +1,21 @@
 import { LitElement, html } from 'lit';
 
+/**
+ * @class UiIconSet
+ * @extends LitElement
+ * @description
+ * A component that provides a centralized SVG icon set for use throughout the application.
+ * Renders all available icons as SVG symbols in the Light DOM, making them accessible to ui-icon components.
+ * Must be included once in the document before using ui-icon components.
+ *
+ */
 export class UiIconSet extends LitElement {
+  /**
+   * Renders the SVG symbol definitions for all available icons.
+   * Icons included: paper-plane, car, caret-down, caret-up, list-dots, bank-reduced-logo
+   *
+   * @returns {TemplateResult} Lit template result containing SVG symbol definitions
+   */
   render() {
     return html`
       <svg

@@ -4,26 +4,77 @@ import '../atoms/ui-icon/ui-icon.js';
 import '../atoms/ui-icon/ui-icon-set.js';
 import '../atoms/ui-amount/ui-amount.js';
 
+/**
+ * @class PaymentWidget
+ * @extends LitElement
+ * @description
+ * A comprehensive payment widget component that displays payment transaction details
+ * with support for multiple currencies, locales, and custom button configurations.
+ *
+ * The component presents a complete payment card interface including:
+ * - Header with transaction date and amount
+ * - Main section with payment title and amount
+ * - Secondary details section with account info, status, category, and description
+ * - Optional bullet points list
+ * - Footer with customizable action buttons
+ */
 export class PaymentWidget extends LitElement {
+  /**
+   * @property {string} date - Transaction date in ISO format (YYYY-MM-DD)
+   * @property {number} headerAmount - Amount displayed in header (account balance)
+   * @property {number} paymentAmount - Main payment amount to display
+   * @property {string} currency - Currency symbol (€, $, £, etc.)
+   * @property {string} locale - (en-US, es-ES, de-DE, etc.)
+   * @property {string} currencyPosition - Currency symbol position ('before' or 'after')
+   * @property {string} headerAmountTrend - Trend indicator ('up', 'down', 'none')
+   * @property {string} paymentTitle - Title of the payment transaction
+   * @property {string} accountNumber - Bank account number
+   * @property {string} status - Payment status (Pending, Completed, etc.)
+   * @property {string} category - Payment category (Transfer, Shopping, etc.)
+   * @property {string} description - Detailed payment description
+   * @property {Array<string>} bullets - List of additional payment details
+   * @property {string} primaryButtonLabel - Label for the primary action button
+   * @property {string} primaryButtonVariant - Primary button style variant
+   * @property {string} secondaryButtonLabel - Label for the secondary action button
+   * @property {string} secondaryButtonVariant - Secondary button style variant
+   * @property {string} secondaryButtonHref - URL for secondary button link
+   */
   static properties = {
+    /** @type {string} Transaction date in ISO format */
     date: { type: String },
+    /** @type {number} Amount displayed in header */
     headerAmount: { type: Number },
+    /** @type {number} Main payment amount */
     paymentAmount: { type: Number },
+    /** @type {string} Currency symbol */
     currency: { type: String },
+    /** @type {string} language tag */
     locale: { type: String },
+    /** @type {string} Currency symbol position ('before'|'after') */
     currencyPosition: { type: String },
+    /** @type {string} Header amount trend indicator */
     headerAmountTrend: { type: String },
+    /** @type {string} Payment transaction title */
     paymentTitle: { type: String },
+    /** @type {string} Bank account number */
     accountNumber: { type: String },
+    /** @type {string} Payment status */
     status: { type: String },
+    /** @type {string} Payment category */
     category: { type: String },
+    /** @type {string} Payment description */
     description: { type: String },
+    /** @type {Array<string>} Additional payment details list */
     bullets: { type: Array },
-
+    /** @type {string} Primary button label */
     primaryButtonLabel: { type: String },
+    /** @type {string} Primary button variant style */
     primaryButtonVariant: { type: String },
+    /** @type {string} Secondary button label */
     secondaryButtonLabel: { type: String },
+    /** @type {string} Secondary button variant style */
     secondaryButtonVariant: { type: String },
+    /** @type {string} Secondary button link URL */
     secondaryButtonHref: { type: String },
   };
 
